@@ -83,7 +83,7 @@ export function ChatAssistant({ jobDescription, results, cvs }: ChatAssistantPro
                 Summary: ${r.summary}
               `).join('\n')}
               
-              Use this context to answer user questions about the recruitment. Be professional, concise, and helpful. Always respond in Indonesian unless asked otherwise.
+              Use this context to answer user questions about recruitment. Be professional, concise, and helpful. You can respond in both English and Indonesian as appropriate.
             ` },
             ...messages.map(m => ({ text: `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}` })),
             { text: `User: ${input}` }
@@ -93,7 +93,7 @@ export function ChatAssistant({ jobDescription, results, cvs }: ChatAssistantPro
 
       const assistantMessage: Message = {
         role: 'assistant',
-        content: response.text || 'Maaf, saya tidak bisa memberikan jawaban saat ini.',
+        content: response.text || 'I apologize, but I couldn\'t generate a response. Please try again.',
         timestamp: new Date()
       };
 
@@ -102,7 +102,7 @@ export function ChatAssistant({ jobDescription, results, cvs }: ChatAssistantPro
       console.error(error);
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: 'Maaf, saya mengalami kendala teknis. Mohon coba beberapa saat lagi.',
+        content: 'System timeout. Please verify your connection and try again.',
         timestamp: new Date()
       }]);
     } finally {
@@ -118,25 +118,25 @@ export function ChatAssistant({ jobDescription, results, cvs }: ChatAssistantPro
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="w-[400px] h-[600px] bg-[#1e293b] border border-white/10 rounded-[2rem] shadow-2xl flex flex-col overflow-hidden backdrop-blur-xl"
+            className="w-[400px] h-[600px] bg-white border border-slate-200 rounded-[2rem] shadow-2xl flex flex-col overflow-hidden backdrop-blur-xl"
           >
             {/* Header */}
-            <div className="p-6 bg-blue-600 flex items-center justify-between shrink-0">
+            <div className="p-6 bg-slate-900 flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
                   <Bot className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-white font-bold text-sm tracking-tight">Recruitment Assistant</h3>
+                  <h3 className="text-white font-bold text-sm tracking-tight">AI Recruitment Assistant</h3>
                   <div className="flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
-                    <span className="text-[10px] text-blue-100 font-bold uppercase tracking-widest">Always Online</span>
+                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-none">Intelligence Online</span>
                   </div>
                 </div>
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="p-2 hover:bg-white/10 rounded-xl transition-colors text-white/80"
+                className="p-2 hover:bg-white/10 rounded-xl transition-colors text-white/50 hover:text-white"
               >
                 <Minus className="w-5 h-5" />
               </button>
@@ -150,16 +150,16 @@ export function ChatAssistant({ jobDescription, results, cvs }: ChatAssistantPro
                   m.role === 'user' ? "flex-row-reverse" : "flex-row"
                 )}>
                   <div className={cn(
-                    "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border border-white/5 shadow-sm",
-                    m.role === 'user' ? "bg-blue-600 text-white" : "bg-white/5 text-slate-400"
+                    "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border shadow-sm",
+                    m.role === 'user' ? "bg-blue-600 text-white border-blue-500" : "bg-slate-100 text-slate-500 border-slate-200"
                   )}>
                     {m.role === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                   </div>
                   <div className={cn(
                     "max-w-[80%] p-4 rounded-2xl text-sm leading-relaxed",
                     m.role === 'user' 
-                      ? "bg-blue-600/10 text-blue-100 border border-blue-500/20 rounded-tr-none" 
-                      : "bg-white/5 text-slate-300 border border-white/5 rounded-tl-none"
+                      ? "bg-blue-50 text-blue-900 border border-blue-100 rounded-tr-none" 
+                      : "bg-slate-50 text-slate-700 border border-slate-100 rounded-tl-none"
                   )}>
                     {m.content}
                   </div>
@@ -167,13 +167,13 @@ export function ChatAssistant({ jobDescription, results, cvs }: ChatAssistantPro
               ))}
               {isTyping && (
                 <div className="flex gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center border border-white/5 animate-pulse">
-                    <Bot className="w-4 h-4 text-slate-500" />
+                  <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center border border-slate-200 animate-pulse">
+                    <Bot className="w-4 h-4 text-slate-400" />
                   </div>
-                  <div className="bg-white/5 p-4 rounded-2xl rounded-tl-none border border-white/5 flex items-center gap-1">
-                    <div className="w-1 h-1 bg-slate-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                    <div className="w-1 h-1 bg-slate-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                    <div className="w-1 h-1 bg-slate-500 rounded-full animate-bounce"></div>
+                  <div className="bg-slate-50 p-4 rounded-2xl rounded-tl-none border border-slate-100 flex items-center gap-1">
+                    <div className="w-1 h-1 bg-slate-300 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                    <div className="w-1 h-1 bg-slate-300 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                    <div className="w-1 h-1 bg-slate-300 rounded-full animate-bounce"></div>
                   </div>
                 </div>
               )}
@@ -181,24 +181,24 @@ export function ChatAssistant({ jobDescription, results, cvs }: ChatAssistantPro
             </div>
 
             {/* Input */}
-            <form onSubmit={handleSend} className="p-6 bg-black/20 border-t border-white/5">
+            <form onSubmit={handleSend} className="p-6 bg-slate-50 border-t border-slate-200">
               <div className="relative">
                 <input
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ketik pertanyaan Anda..."
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl pl-4 pr-12 py-3.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all placeholder:text-slate-600"
+                  placeholder="Ask about candidates or JD..."
+                  className="w-full bg-white border border-slate-200 rounded-xl pl-4 pr-12 py-3.5 text-sm text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500/50 transition-all placeholder:text-slate-400 shadow-sm"
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || isTyping}
-                  className="absolute right-2 top-1.5 p-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl transition-all disabled:opacity-50 disabled:grayscale"
+                  className="absolute right-2 top-2 p-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg transition-all disabled:opacity-50 disabled:grayscale"
                 >
                   <Send className="w-4 h-4" />
                 </button>
               </div>
-              <p className="text-[10px] text-center text-slate-600 mt-3 font-bold uppercase tracking-widest">Powered by Gemini Intelligent Systems</p>
+              <p className="text-[10px] text-center text-slate-400 mt-4 font-bold uppercase tracking-widest">Enterprise AI Intelligence</p>
             </form>
           </motion.div>
         )}
@@ -216,7 +216,7 @@ export function ChatAssistant({ jobDescription, results, cvs }: ChatAssistantPro
         <div className="absolute inset-0 bg-gradient-to-tr from-white/0 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
         {isOpen ? <X className="w-8 h-8 text-white relative z-10" /> : <MessageSquare className="w-8 h-8 text-white relative z-10" />}
         {!isOpen && (
-           <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-[#0f172a] animate-ping"></div>
+           <div className="absolute top-4 right-4 w-2 h-2 bg-emerald-400 rounded-full shadow-sm"></div>
         )}
       </motion.button>
     </div>

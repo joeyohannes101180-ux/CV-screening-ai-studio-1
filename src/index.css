@@ -14,23 +14,23 @@
 }
 
 body {
-  @apply bg-[#0f172a] text-slate-100 antialiased h-screen overflow-hidden;
+  @apply bg-slate-50 text-slate-900 antialiased h-screen overflow-hidden;
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e293b;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: theme('colors.slate.300');
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: theme('colors.slate.400');
 }

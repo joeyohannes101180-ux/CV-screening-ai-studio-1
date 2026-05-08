@@ -62,40 +62,40 @@ export function FileUpload({ label, content, onChange, placeholderText }: FileUp
         <div
           {...getRootProps()}
           className={cn(
-            "border-2 border-dashed rounded-2xl p-10 text-center transition-all cursor-pointer bg-white/[0.02] border-white/10 hover:bg-white/[0.05] hover:border-blue-500/50 flex flex-col items-center justify-center gap-4 group shadow-lg",
-            isDragActive && "border-blue-500 bg-blue-500/5"
+            "border-2 border-dashed rounded-2xl p-10 text-center transition-all cursor-pointer bg-white border-slate-200 hover:bg-slate-50 hover:border-blue-500/50 flex flex-col items-center justify-center gap-4 group shadow-sm",
+            isDragActive && "border-blue-500 bg-blue-50"
           )}
         >
           <input {...getInputProps()} />
           <Upload className={cn(
             "w-8 h-8 transition-colors",
-            isDragActive ? "text-blue-500" : "text-slate-500 group-hover:text-blue-400"
+            isDragActive ? "text-blue-500" : "text-slate-400 group-hover:text-blue-500"
           )} />
           <div className="flex flex-col gap-1">
-            <p className="text-base text-slate-300 font-semibold">
+            <p className="text-base text-slate-700 font-semibold">
               {placeholderText || "Upload file"}
             </p>
-            <span className="text-xs text-slate-500 uppercase tracking-tight">
+            <span className="text-xs text-slate-400 uppercase tracking-widest font-medium">
               PDF, DOCX, XLSX, Images Supported
             </span>
           </div>
         </div>
       ) : (
-        <div className="flex items-center justify-between p-4 bg-blue-500/10 border border-blue-500/20 rounded-2xl group transition-all">
+        <div className="flex items-center justify-between p-4 bg-blue-50 border border-blue-200 rounded-2xl group transition-all">
           <div className="flex items-center gap-4 overflow-hidden">
-            <div className="p-3 bg-white/5 rounded-xl shrink-0 shadow-sm border border-white/10">
-              <FileIcon className="w-6 h-6 text-blue-400" />
+            <div className="p-3 bg-white rounded-xl shrink-0 shadow-sm border border-slate-100">
+              <FileIcon className="w-6 h-6 text-blue-600" />
             </div>
             <div className="flex flex-col overflow-hidden">
-              <span className="text-sm font-bold text-slate-100 truncate">
+              <span className="text-sm font-bold text-slate-900 truncate">
                 {content.file.name}
               </span>
-              <span className="text-xs text-blue-400 font-medium">Ready for analysis</span>
+              <span className="text-xs text-blue-600 font-bold uppercase tracking-widest">Document Ready</span>
             </div>
           </div>
           <button
             onClick={() => onChange({ ...content, file: undefined })}
-            className="p-2 hover:bg-white/10 rounded-full transition-colors text-slate-500 hover:text-rose-400"
+            className="p-2 hover:bg-white rounded-full transition-colors text-slate-400 hover:text-rose-500"
           >
             <X className="w-5 h-5" />
           </button>
@@ -107,11 +107,11 @@ export function FileUpload({ label, content, onChange, placeholderText }: FileUp
           value={content.text}
           onChange={(e) => onChange({ ...content, text: e.target.value })}
           placeholder="Or paste the text content here..."
-          className="w-full min-h-[180px] px-5 py-4 bg-black/40 border border-white/10 rounded-2xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/40 transition-all outline-none text-sm text-slate-200 resize-none font-sans leading-relaxed placeholder:text-slate-600 shadow-inner"
+          className="w-full min-h-[180px] px-6 py-5 bg-white border border-slate-200 rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500/50 transition-all outline-none text-sm text-slate-700 resize-none font-sans leading-relaxed placeholder:text-slate-400 shadow-sm"
         />
-        <div className="absolute top-3 right-3 flex items-center gap-2 px-2 py-1 bg-white/5 rounded text-[10px] text-slate-500 uppercase tracking-widest font-black opacity-40 group-hover:opacity-100 transition-opacity">
+        <div className="absolute top-4 right-4 flex items-center gap-2 px-2.5 py-1.5 bg-slate-50 border border-slate-100 rounded text-[10px] text-slate-500 uppercase tracking-widest font-black opacity-40 group-hover:opacity-100 transition-opacity">
           <FileText className="w-3 h-3" />
-          Text input
+          Raw Text
         </div>
       </div>
     </div>
